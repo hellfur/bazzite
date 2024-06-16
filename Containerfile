@@ -48,6 +48,12 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
+# Install tmff2 driver prereqs.
+RUN rpm-ostree install dkms \
+        kernel-headers \
+        kernel-devel && \
+    ostree container commit
+
 COPY build.sh /tmp/build.sh
 
 RUN mkdir -p /var/lib/alternatives && \
