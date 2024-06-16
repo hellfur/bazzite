@@ -13,7 +13,7 @@ RELEASE="$(rpm -E %fedora)"
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
 
 # this installs a package from fedora repos
-rpm-ostree install screen
+# rpm-ostree install screen
 
 # this would install a package from rpmfusion
 # rpm-ostree install vlc
@@ -21,3 +21,12 @@ rpm-ostree install screen
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
+
+# Install tmff2 driver.
+mkdir -p /tmp/hid-tmff2
+cd /tmp/hid-tmff2
+git clone --recurse-submodules https://github.com/Kimplul/hid-tmff2.git
+cd hid-tmff2
+./dkms/dkms-install.sh
+
+
