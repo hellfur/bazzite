@@ -23,6 +23,7 @@ RELEASE="$(rpm -E %fedora)"
 systemctl enable podman.socket
 
 # Install tmff2 driver.
+export KDIR=/lib/modules/6.9.4-201.fsync.fc40.x86_64/build
 mkdir -p /tmp/hid-tmff2
 cd /tmp/hid-tmff2
 git clone --recurse-submodules https://github.com/Kimplul/hid-tmff2.git
