@@ -49,9 +49,10 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 # Install tmff2 driver prereqs.
-RUN rpm-ostree install dkms \
-        kernel-headers \
-        kernel-devel && \
+RUN rpm-ostree install \
+        --experimental \
+        --from repo=testing
+        dkms && \
     ostree container commit
 
 COPY build.sh /tmp/build.sh
