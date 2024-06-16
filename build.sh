@@ -27,6 +27,7 @@ mkdir -p /tmp/hid-tmff2
 cd /tmp/hid-tmff2
 git clone --recurse-submodules https://github.com/Kimplul/hid-tmff2.git
 cd hid-tmff2
-./dkms/dkms-install.sh
+make
+sudo make install
 
 
