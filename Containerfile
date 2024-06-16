@@ -48,10 +48,14 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
+# Add fsync kernel repo for kernel-devel.
+RUN curl -Lo /etc/yum.repos.d/_copr_sentry-kernel.repo https://copr.fedorainfracloud.org/coprs/sentry/kernel-fsync/repo/fedora-39/sentry-kernel-fsync-fedora-39.repo && \
+    ostree container commit
+
+
 # Install tmff2 driver prereqs.
-RUN rpm-ostree install dkms \
-        kernel-headers \
-        kernel-devel && \
+COPY kernel-devel.sh /tmp/kernel-devel.sh
+RUN /tmp/kernel-devel.sh && \
     ostree container commit
 
 COPY build.sh /tmp/build.sh
@@ -59,6 +63,7 @@ COPY build.sh /tmp/build.sh
 RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
     ostree container commit
+
 ## NOTES:
 # - /var/lib/alternatives is required to prevent failure with some RPM installs
 # - All RUN commands must end with ostree container commit
