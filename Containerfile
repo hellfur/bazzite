@@ -50,8 +50,7 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 
 # Install tmff2 driver prereqs.
 RUN rpm-ostree install \
-        --experimental \
-        --from repo=testing
+        --enablerepo=testing
         dkms && \
     ostree container commit
 
