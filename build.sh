@@ -20,15 +20,14 @@ RELEASE="$(rpm -E %fedora)"
 
 #### Example for enabling a System Unit File
 
-systemctl enable podman.socket
+# systemctl enable podman.socket
 
 # Install tmff2 driver.
-export KDIR=/lib/modules/6.9.4-201.fsync.fc40.x86_64/build
 mkdir -p /tmp/hid-tmff2
 cd /tmp/hid-tmff2
 git clone --recurse-submodules https://github.com/Kimplul/hid-tmff2.git
 cd hid-tmff2
-make
-sudo make install
+make all KDIR=/lib/modules/6.9.4-201.fsync.fc40.x86_64/build
+sudo make install KDIR=/lib/modules/6.9.4-201.fsync.fc40.x86_64/build
 
 
