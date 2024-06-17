@@ -25,9 +25,9 @@ RELEASE="$(rpm -E %fedora)"
 # Install tmff2 driver.
 mkdir -p /tmp/hid-tmff2
 cd /tmp/hid-tmff2
-git clone --recurse-submodules https://github.com/Kimplul/hid-tmff2.git
+git clone --recurse-submodules https://github.com/hellfur/hid-tmff2.git
 cd hid-tmff2
-make all KDIR=/lib/modules/6.9.4-201.fsync.fc40.x86_64/build
-sudo make install KDIR=/lib/modules/6.9.4-201.fsync.fc40.x86_64/build
+make all KERNEL_VERSION=6.9.4-201.fsync.fc40.x86_64
+sudo make install KERNEL_VERSION=6.9.4-201.fsync.fc40.x86_64
 
 
