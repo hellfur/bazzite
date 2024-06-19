@@ -59,6 +59,13 @@ COPY build.sh /tmp/build.sh
 RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
     ostree container commit
+
+# These aren't necessary to hold onto after the kernel module has been built and installed, can be overlayed if necessary.
+RUN rpm-ostree uninstall \
+        kernel-headers \
+        kernel-devel && \
+    ostree container commit
+
 ## NOTES:
 # - /var/lib/alternatives is required to prevent failure with some RPM installs
 # - All RUN commands must end with ostree container commit
