@@ -50,19 +50,14 @@ FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 
 # Install tmff2 driver prereqs.
 RUN rpm-ostree install \
-        kernel-headers \
-        kernel-devel && \
+    kernel-headers \
+    kernel-devel && \
     ostree container commit
 
 COPY build.sh /tmp/build.sh
 
 RUN mkdir -p /var/lib/alternatives && \
     /tmp/build.sh && \
-    ostree container commit
-
-RUN rpm-ostree uninstall \
-        kernel-headers \
-        kernel-devel && \
     ostree container commit
 
 ## NOTES:
