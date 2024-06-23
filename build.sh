@@ -23,6 +23,7 @@ RELEASE="$(rpm -E %fedora)"
 # systemctl enable podman.socket
 
 # Install tmff2 driver.
+ln -s /usr/bin/ld.bfd /usr/bin/ld
 mkdir -p /tmp/hid-tmff2
 cd /tmp/hid-tmff2
 git clone --recurse-submodules https://github.com/hellfur/hid-tmff2.git
