@@ -22,6 +22,9 @@ RELEASE="$(rpm -E %fedora)"
 
 # systemctl enable podman.socket
 
+BAZZITE_KERNEL=`ls /lib/modules`
+rpm-ostree install -A kernel-headers kernel-devel-$BAZZITE_KERNEL
+
 # Install tmff2 driver.
 if [[ ! -f /usr/bin/ld ]]; then
   ln -s /usr/bin/ld.bfd /usr/bin/ld
@@ -30,7 +33,7 @@ mkdir -p /tmp/hid-tmff2
 cd /tmp/hid-tmff2
 git clone --recurse-submodules https://github.com/hellfur/hid-tmff2.git
 cd hid-tmff2
-CURRENT_BAZZITE_KERNEL=`ls /lib/modules`
-make all KERNEL_VERSION=$CURRENT_BAZZITE_KERNEL
-sudo make install KERNEL_VERSION=$CURRENT_BAZZITE_KERNEL
+make all KERNEL_VERSION=$BAZZITE_KERNEL
+sudo make install KERNEL_VERSION=$BAZZITE_KERNEL
 
+rpm-ostree uninstall kernel-headers kernel-devel-$BAZZITE_KERNEL
