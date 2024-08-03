@@ -30,7 +30,8 @@ mkdir -p /tmp/hid-tmff2
 cd /tmp/hid-tmff2
 git clone --recurse-submodules https://github.com/hellfur/hid-tmff2.git
 cd hid-tmff2
-make all KERNEL_VERSION=$BAZZITE_KERNEL
-sudo make install KERNEL_VERSION=$BAZZITE_KERNEL
+CURRENT_BAZZITE_KERNEL=`ls /lib/modules`
+make all KERNEL_VERSION=$CURRENT_BAZZITE_KERNEL
+sudo make install KERNEL_VERSION=$CURRENT_BAZZITE_KERNEL
 
-rpm-ostree uninstall kernel-headers kernel-devel-$BAZZITE_KERNEL
+rpm-ostree uninstall kernel-headers kernel-devel-$CURRENT_BAZZITE_KERNEL
