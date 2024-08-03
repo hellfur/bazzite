@@ -34,4 +34,4 @@ CURRENT_BAZZITE_KERNEL=`ls /lib/modules`
 make all KERNEL_VERSION=$CURRENT_BAZZITE_KERNEL
 sudo make install KERNEL_VERSION=$CURRENT_BAZZITE_KERNEL
 
-rpm-ostree uninstall kernel-headers kernel-devel-$CURRENT_BAZZITE_KERNEL
+# rpm-ostree uninstall kernel-headers kernel-devel-$CURRENT_BAZZITE_KERNEL
