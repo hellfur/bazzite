@@ -54,9 +54,9 @@ RUN curl -Lo /etc/yum.repos.d/_copr_sentry-kernel.repo https://copr.fedorainfrac
 
 
 # Install tmff2 driver prereqs.
-#COPY kernel-devel.sh /tmp/kernel-devel.sh
-#RUN /tmp/kernel-devel.sh && \
-#    ostree container commit
+COPY kernel-devel.sh /tmp/kernel-devel.sh
+RUN /tmp/kernel-devel.sh && \
+    ostree container commit
 
 COPY build.sh /tmp/build.sh
 

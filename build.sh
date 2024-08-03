@@ -22,9 +22,6 @@ RELEASE="$(rpm -E %fedora)"
 
 # systemctl enable podman.socket
 
-BAZZITE_KERNEL=`ls /lib/modules`
-rpm-ostree install -A kernel-headers kernel-devel-$BAZZITE_KERNEL
-
 # Install tmff2 driver.
 if [[ ! -f /usr/bin/ld ]]; then
   ln -s /usr/bin/ld.bfd /usr/bin/ld
