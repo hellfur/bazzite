@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '40 20 * * 2,5'  # 8:40pm UTC Tuesday/Thursday
+    - cron: '05 10 * * *'  # 10:05am UTC everyday
   push:
     branches:
       - main
@@ -21,7 +21,7 @@ env:
 jobs:
   build_push:
     name: Build and push image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     permissions:
       contents: read
@@ -32,6 +32,9 @@ jobs:
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
         uses: actions/checkout@v4
+
+      - name: Maximize build space
+        uses: ublue-os/remove-unwanted-software@v7
 
       - name: Generate tags
         id: generate-tags
