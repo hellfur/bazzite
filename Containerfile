@@ -5,7 +5,7 @@
 #   podman build -f Containerfile --build-arg FEDORA_VERSION=40 -t local-image
 
 ARG KERNEL_FLAVOR="fsync-ba"
-ARG KERNEL_VERSION="6.9.12-205.fsync.fc40.x86_64"
+ARG KERNEL_VERSION="6.9.12-207.fsync.fc40.x86_64"
 
 # SOURCE_IMAGE arg can be anything from ublue upstream which matches your desired version:
 # See list here: https://github.com/orgs/ublue-os/packages?repo_name=main
@@ -47,7 +47,7 @@ ARG SOURCE_TAG="latest"
 FROM ghcr.io/ublue-os/${KERNEL_FLAVOR}-kernel:${KERNEL_VERSION} AS fsync
 FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 
-ARG KERNEL_VERSION="6.9.12-205.fsync.fc40.x86_64"
+ARG KERNEL_VERSION="6.9.12-207.fsync.fc40.x86_64"
 
 ### 3. MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
