@@ -36,6 +36,10 @@ jobs:
       - name: Maximize build space
         uses: ublue-os/remove-unwanted-software@v7
 
+      - name: Define env.KERNEL_VERSION
+        run: |
+          echo "KERNEL_VERSION=`curl "https://raw.githubusercontent.com/ublue-os/bazzite/refs/heads/main/.github/workflows/build.yml" 2>/dev/null | grep "kernel_version:" | sed 's/\s*kernel_version: \([^ #]*\).*/\1/'`" >> $GITHUB_ENV
+
       - name: Generate tags
         id: generate-tags
         shell: bash
