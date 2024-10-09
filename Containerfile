@@ -62,8 +62,7 @@ ARG KERNEL_VERSION="6.9.12-208.fsync.fc40.x86_64"
 RUN --mount=type=bind,from=fsync,src=/tmp/rpms,dst=/tmp/fsync-rpms \
     rpm-ostree override replace \
     --experimental \
-            /tmp/fsync-rpms/kernel-core-*.rpm \
-            /tmp/fsync-rpms/kernel-devel*.rpm \
+            /tmp/fsync-rpms/kernel-*.rpm \
              && \
     ostree container commit
 
