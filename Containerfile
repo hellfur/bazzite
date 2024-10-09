@@ -64,6 +64,7 @@ RUN --mount=type=bind,from=fsync,src=/tmp/rpms,dst=/tmp/fsync-rpms \
     --experimental \
             /tmp/fsync-rpms/kernel-core-*.rpm \
             /tmp/fsync-rpms/kernel-modules-[0-9]*.rpm \
+            /tmp/fsync-rpms/kernel-modules-core-[0-9]*.rpm \
             /tmp/fsync-rpms/kernel-devel*.rpm \
              && \
     ostree container commit
