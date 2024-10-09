@@ -54,31 +54,30 @@ ARG KERNEL_VERSION="${KERNEL_VERSION:-6.9.12-208.fsync.fc40.x86_64}"
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 # Add fsync kernel repo for kernel-devel.
-#RUN curl -Lo /etc/yum.repos.d/_copr_sentry-kernel.repo https://copr.fedorainfracloud.org/coprs/sentry/kernel-fsync/repo/fedora-40/sentry-kernel-fsync-fedora-40.repo && \
-#    ostree container commit
-
+RUN curl -Lo /etc/yum.repos.d/_copr_sentry-kernel.repo https://copr.fedorainfracloud.org/coprs/sentry/kernel-ba/repo/fedora-40/sentry-kernel-ba-fedora-40.repo && \
+    ostree container commit
 
 # Install kernel development rpms.
-RUN --mount=type=bind,from=fsync,src=/tmp/rpms,dst=/tmp/fsync-rpms \
+#RUN --mount=type=bind,from=fsync,src=/tmp/rpms,dst=/tmp/fsync-rpms \
 #    rpm-ostree override replace \
 #    --experimental \
-    rpm-ostree install \
-            /tmp/fsync-rpms/kernel-${KERNEL_VERSION}.rpm \
-            /tmp/fsync-rpms/kernel-core-${KERNEL_VERSION}.rpm \
-            /tmp/fsync-rpms/kernel-modules-*.rpm \
-            /tmp/fsync-rpms/kernel-uki-virt-*.rpm \
-            /tmp/fsync-rpms/kernel-devel-${KERNEL_VERSION}.rpm \
-            /tmp/fsync-rpms/kernel-devel-matched-${KERNEL_VERSION}.rpm \
-             && \
-    ostree container commit
+#    rpm-ostree install \
+#            /tmp/fsync-rpms/kernel-${KERNEL_VERSION}.rpm \
+#            /tmp/fsync-rpms/kernel-core-${KERNEL_VERSION}.rpm \
+#            /tmp/fsync-rpms/kernel-modules-*.rpm \
+#            /tmp/fsync-rpms/kernel-uki-virt-*.rpm \
+#            /tmp/fsync-rpms/kernel-devel-${KERNEL_VERSION}.rpm \
+#            /tmp/fsync-rpms/kernel-devel-matched-${KERNEL_VERSION}.rpm \
+#             && \
+#    ostree container commit
 
 #             /tmp/fsync-rpms/kernel-[0-9]*.rpm \
 #             /tmp/fsync-rpms/kernel-core-*.rpm \
 #             /tmp/fsync-rpms/kernel-modules-*.rpm \
 #             /tmp/fsync-rpms/kernel-uki-virt-*.rpm \
 
-# RUN rpm-ostree install kernel-headers kernel-devel-${KERNEL_VERSION} && \
-#     ostree container commit
+RUN rpm-ostree install kernel-headers kernel-devel-matched-${KERNEL_VERSION} && \
+    ostree container commit
 
 COPY build.sh /tmp/build.sh
 
