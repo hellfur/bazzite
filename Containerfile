@@ -54,8 +54,8 @@ ARG KERNEL_VERSION="${KERNEL_VERSION:-6.9.12-208.fsync.fc40.x86_64}"
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
 
 # Add fsync kernel repo for kernel-devel.
-RUN curl -Lo /etc/yum.repos.d/_copr_sentry-kernel.repo https://copr.fedorainfracloud.org/coprs/sentry/kernel-ba/repo/fedora-40/sentry-kernel-ba-fedora-40.repo && \
-    ostree container commit
+#RUN curl -Lo /etc/yum.repos.d/_copr_sentry-kernel.repo https://copr.fedorainfracloud.org/coprs/sentry/kernel-ba/repo/fedora-40/sentry-kernel-ba-fedora-40.repo && \
+#    ostree container commit
 
 # Install kernel development rpms.
 #RUN --mount=type=bind,from=fsync,src=/tmp/rpms,dst=/tmp/fsync-rpms \
@@ -76,8 +76,11 @@ RUN curl -Lo /etc/yum.repos.d/_copr_sentry-kernel.repo https://copr.fedorainfrac
 #             /tmp/fsync-rpms/kernel-modules-*.rpm \
 #             /tmp/fsync-rpms/kernel-uki-virt-*.rpm \
 
-RUN rpm-ostree override replace --experimental kernel-headers kernel-devel-matched-${KERNEL_VERSION} && \
-    ostree container commit
+#RUN rpm-ostree override replace --experimental kernel-headers kernel-devel-matched-${KERNEL_VERSION} && \
+#    ostree container commit
+
+RUN rpm-ostree install kernel-devel-matched && \
+	ostree container commit
 
 COPY build.sh /tmp/build.sh
 
