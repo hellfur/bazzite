@@ -76,7 +76,7 @@ RUN curl -Lo /etc/yum.repos.d/_copr_sentry-kernel.repo https://copr.fedorainfrac
 #             /tmp/fsync-rpms/kernel-modules-*.rpm \
 #             /tmp/fsync-rpms/kernel-uki-virt-*.rpm \
 
-RUN rpm-ostree replace override --experimental kernel-headers kernel-devel-matched-${KERNEL_VERSION} && \
+RUN rpm-ostree override replace --experimental kernel-headers kernel-devel-matched-${KERNEL_VERSION} && \
     ostree container commit
 
 COPY build.sh /tmp/build.sh
