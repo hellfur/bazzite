@@ -60,9 +60,15 @@ ARG KERNEL_VERSION="${KERNEL_VERSION:-6.9.12-208.fsync.fc40.x86_64}"
 
 # Install kernel development rpms.
 RUN --mount=type=bind,from=fsync,src=/tmp/rpms,dst=/tmp/fsync-rpms \
-    rpm-ostree override replace \
-    --experimental \
+#    rpm-ostree override replace \
+#    --experimental \
+    rpm-ostree install \
+            /tmp/fsync-rpms/kernel-${KERNEL_VERSION}.rpm \
+            /tmp/fsync-rpms/kernel-core-${KERNEL_VERSION}.rpm \
+            /tmp/fsync-rpms/kernel-modules-*.rpm \
+            /tmp/fsync-rpms/kernel-uki-virt-*.rpm \
             /tmp/fsync-rpms/kernel-devel-${KERNEL_VERSION}.rpm \
+            /tmp/fsync-rpms/kernel-devel-matched-${KERNEL_VERSION}.rpm \
              && \
     ostree container commit
 
