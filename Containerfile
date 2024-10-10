@@ -5,7 +5,7 @@
 #   podman build -f Containerfile --build-arg FEDORA_VERSION=40 -t local-image
 
 ARG KERNEL_FLAVOR="fsync-ba"
-ARG KERNEL_VERSION="${KERNEL_VERSION:-6.9.12-208.fsync.fc40.x86_64}"
+ARG KERNEL_VERSION="${KERNEL_VERSION:-6.9.12-205.fsync.fc40.x86_64}"
 
 # SOURCE_IMAGE arg can be anything from ublue upstream which matches your desired version:
 # See list here: https://github.com/orgs/ublue-os/packages?repo_name=main
@@ -47,7 +47,7 @@ ARG SOURCE_TAG="latest"
 FROM ghcr.io/ublue-os/${KERNEL_FLAVOR}-kernel:${KERNEL_VERSION} AS fsync
 FROM ghcr.io/ublue-os/${SOURCE_IMAGE}${SOURCE_SUFFIX}:${SOURCE_TAG}
 
-ARG KERNEL_VERSION="${KERNEL_VERSION:-6.9.12-208.fsync.fc40.x86_64}"
+ARG KERNEL_VERSION="${KERNEL_VERSION:-6.9.12-205.fsync.fc40.x86_64}"
 
 ### 3. MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
@@ -58,29 +58,18 @@ ARG KERNEL_VERSION="${KERNEL_VERSION:-6.9.12-208.fsync.fc40.x86_64}"
 #    ostree container commit
 
 # Install kernel development rpms.
-#RUN --mount=type=bind,from=fsync,src=/tmp/rpms,dst=/tmp/fsync-rpms \
-#    rpm-ostree override replace \
-#    --experimental \
-#    rpm-ostree install \
-#            /tmp/fsync-rpms/kernel-${KERNEL_VERSION}.rpm \
-#            /tmp/fsync-rpms/kernel-core-${KERNEL_VERSION}.rpm \
-#            /tmp/fsync-rpms/kernel-modules-*.rpm \
-#            /tmp/fsync-rpms/kernel-uki-virt-*.rpm \
-#            /tmp/fsync-rpms/kernel-devel-${KERNEL_VERSION}.rpm \
-#            /tmp/fsync-rpms/kernel-devel-matched-${KERNEL_VERSION}.rpm \
-#             && \
-#    ostree container commit
+RUN --mount=type=bind,from=fsync,src=/tmp/rpms,dst=/tmp/fsync-rpms \
+    rpm-ostree override replace \
+    --experimental \
+            /tmp/fsync-rpms/kernel-devel-${KERNEL_VERSION}.rpm \
+            /tmp/fsync-rpms/kernel-devel-matched-${KERNEL_VERSION}.rpm \
+             && \
+    ostree container commit
 
 #             /tmp/fsync-rpms/kernel-[0-9]*.rpm \
 #             /tmp/fsync-rpms/kernel-core-*.rpm \
 #             /tmp/fsync-rpms/kernel-modules-*.rpm \
 #             /tmp/fsync-rpms/kernel-uki-virt-*.rpm \
-
-#RUN rpm-ostree override replace --experimental kernel-headers kernel-devel-matched-${KERNEL_VERSION} && \
-#    ostree container commit
-
-RUN rpm-ostree install kernel-devel-matched && \
-	ostree container commit
 
 COPY build.sh /tmp/build.sh
 
