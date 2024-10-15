@@ -4,7 +4,7 @@
 # Build args can be provided on the commandline when building locally with:
 #   podman build -f Containerfile --build-arg FEDORA_VERSION=40 -t local-image
 
-ARG KERNEL_FLAVOR="${KERNEL_FLAVOR:-fsync-ba"
+ARG KERNEL_FLAVOR="${KERNEL_FLAVOR:-fsync-ba}"
 ARG KERNEL_VERSION="${KERNEL_VERSION:-6.9.12-205.fsync.fc40.x86_64}"
 
 # SOURCE_IMAGE arg can be anything from ublue upstream which matches your desired version:
