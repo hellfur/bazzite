@@ -38,9 +38,9 @@ jobs:
 
       - name: Define env.KERNEL_VERSION
         run: |
-          echo `curl 'https://raw.githubusercontent.com/ublue-os/bazzite/refs/heads/main/.github/workflows/build.yml' 2>/dev/null | grep '\(kernel_version:\)\|\(kernel_flavor:\)' | sed 's/\s*\(kernel_version\|kernel_flavor\): \([^ #]*\).*/\U\1\E=\2/'` >> $GITHUB_ENV
+          echo `curl 'https://raw.githubusercontent.com/ublue-os/bazzite/refs/heads/main/.github/workflows/build.yml' 2>/dev/null | grep '\(kernel_version:\)\|\(kernel_flavor:\)' | sed 's/\s*\(kernel_version\|kernel_flavor\): \([^ #]*\).*/\U\1\E=\2\n/'` >> $GITHUB_ENV
           #echo "KERNEL_VERSION=`curl 'https://raw.githubusercontent.com/ublue-os/bazzite/refs/heads/main/.github/workflows/build.yml' 2>/dev/null | grep 'kernel_version:' | sed 's/\s*kernel_version: \([^ #]*\).*/\1/'`" >> $GITHUB_ENV
-          echo "KERNEL_VERSION=6.9.12-210.fsync.fc40.x86_64" >> $GITHUB_ENV 
+          #echo "KERNEL_VERSION=6.9.12-210.fsync.fc40.x86_64" >> $GITHUB_ENV 
 
       - name: Generate tags
         id: generate-tags
